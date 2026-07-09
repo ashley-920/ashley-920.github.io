@@ -36,14 +36,15 @@
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#upcoming">Upcoming</a>
         <a href="#research">Research</a>
         <a href="#speaking">Speaking</a>
         <a href="#media">Media</a>
-        <a href="#experience">Experience</a>
         <a href="#podcast">Podcast</a>
         <a href="#social">Social</a>
         <a href="#gallery">Gallery</a>
         <a href="#community">Community</a>
+        <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -90,7 +91,7 @@
             <a class="button button-primary" href="#latest-research">
               <span>Latest research</span><span aria-hidden="true">↓</span>
             </a>
-            <a class="button button-ghost" href="#speaking">
+            <a class="button button-ghost" href="#upcoming">
               <span aria-hidden="true">↓</span> Latest events
             </a>
           </div>
@@ -114,12 +115,52 @@
         </div>
 
         <div class="hero-index" aria-hidden="true">
-          <span>00</span><span class="index-line"></span><span>09</span>
+          <span>00</span><span class="index-line"></span><span>10</span>
+        </div>
+      </section>
+
+      <section class="section upcoming-section" id="upcoming">
+        <div class="section-heading reveal">
+          <div>
+            <p class="section-number">01 / UPCOMING EVENTS</p>
+            <h2>Next,<br><em>on the calendar.</em></h2>
+          </div>
+          <p class="section-summary">Confirmed public panels and research briefings—where and when to join me next.</p>
+        </div>
+
+        <div class="event-list" data-mobile-carousel data-carousel-label="Upcoming events" data-carousel-autoplay>
+          <a class="event-row is-upcoming reveal" href="https://ocftw.kktix.cc/events/2026digitalfronline" target="_blank" rel="noreferrer">
+            <div class="event-year">2026<span>UP NEXT</span></div>
+            <div class="event-main">
+              <div class="event-meta">CIVIL SOCIETY ON THE DIGITAL FRONTLINE · TAIPEI</div>
+              <h3>Building a Shared Digital Defense for Civil Society</h3>
+              <p>Panel · July 20 · 15:30</p>
+            </div>
+            <span class="event-arrow">↗</span>
+          </a>
+          <a class="event-row is-upcoming reveal" href="https://www.crowdstrike.com/en-us/events/day-zero-2026/" target="_blank" rel="noreferrer">
+            <div class="event-year">2026<span>UPCOMING</span></div>
+            <div class="event-main">
+              <div class="event-meta">DAY ZERO THREAT RESEARCH SUMMIT · LAS VEGAS</div>
+              <h3>Break the Silence: Tracking Silent Lynx Through Exposed Infrastructure</h3>
+              <p>With Julian-Ferdinand Vögele · Aug 31 · 09:50</p>
+            </div>
+            <span class="event-arrow">↗</span>
+          </a>
+          <a class="event-row is-upcoming reveal" href="https://www.virusbulletin.com/conference/vb2026/abstracts/break-silence-tracking-silent-lynx-through-exposed-infrastructure/" target="_blank" rel="noreferrer">
+            <div class="event-year">2026<span>UPCOMING</span></div>
+            <div class="event-main">
+              <div class="event-meta">VIRUS BULLETIN · SEVILLE</div>
+              <h3>Break the Silence: Tracking Silent Lynx Through Exposed Infrastructure</h3>
+              <p>With Julian-Ferdinand Vögele · Oct 14 · 17:00</p>
+            </div>
+            <span class="event-arrow">↗</span>
+          </a>
         </div>
       </section>
 
       <section class="section research-section" id="research">
-        <p class="section-number research-label reveal">01 / RESEARCH</p>
+        <p class="section-number research-label reveal">02 / RESEARCH</p>
 
         <div class="filter-row reveal" role="group" aria-label="Filter research">
           <button class="filter-chip is-active" type="button" data-filter="all">All findings <sup>17</sup></button>
@@ -129,7 +170,7 @@
           <button class="filter-chip" type="button" data-filter="vulnerability">Vulnerability</button>
         </div>
 
-        <div class="research-mobile-shelf">
+        <div class="research-mobile-shelf" id="research-carousel" data-mobile-carousel data-carousel-label="Research" data-carousel-items=".research-feature, .research-card" data-carousel-autoplay>
           <div class="research-feature reveal" id="latest-research" data-category="apt malware">
           <div class="feature-visual">
             <img class="feature-thumb" src="/assets/research/lucidrook.jpg" alt="LucidRook research artwork" loading="lazy">
@@ -358,6 +399,9 @@
               <i aria-hidden="true">↗</i>
             </a>
           </div>
+          <button class="reference-toggle" type="button" data-reference-toggle aria-expanded="false">
+            <span>Show all references</span><i>+2</i>
+          </button>
         </div>
 
         <div class="discovery-strip reveal" role="group" aria-label="Vulnerability credits">
@@ -381,39 +425,12 @@
       <section class="section speaking-section" id="speaking">
         <div class="section-heading reveal">
           <div>
-            <p class="section-number">02 / SPEAKING</p>
+            <p class="section-number">03 / SPEAKING</p>
             <h2>Research,<br><em>out loud.</em></h2>
           </div>
         </div>
 
-        <div class="event-list">
-          <a class="event-row is-upcoming reveal" href="https://ocftw.kktix.cc/events/2026digitalfronline" target="_blank" rel="noreferrer">
-            <div class="event-year">2026<span>UP NEXT</span></div>
-            <div class="event-main">
-              <div class="event-meta">CIVIL SOCIETY ON THE DIGITAL FRONTLINE · TAIPEI</div>
-              <h3>Building a Shared Digital Defense for Civil Society</h3>
-              <p>Panel · July 20 · 15:30</p>
-            </div>
-            <span class="event-arrow">↗</span>
-          </a>
-          <a class="event-row is-upcoming reveal" href="https://www.crowdstrike.com/en-us/events/day-zero-2026/" target="_blank" rel="noreferrer">
-            <div class="event-year">2026<span>UPCOMING</span></div>
-            <div class="event-main">
-              <div class="event-meta">DAY ZERO THREAT RESEARCH SUMMIT · LAS VEGAS</div>
-              <h3>Break the Silence: Tracking Silent Lynx Through Exposed Infrastructure</h3>
-              <p>With Julian-Ferdinand Vögele · Aug 31 · 09:50</p>
-            </div>
-            <span class="event-arrow">↗</span>
-          </a>
-          <a class="event-row is-upcoming reveal" href="https://www.virusbulletin.com/conference/vb2026/abstracts/break-silence-tracking-silent-lynx-through-exposed-infrastructure/" target="_blank" rel="noreferrer">
-            <div class="event-year">2026<span>UPCOMING</span></div>
-            <div class="event-main">
-              <div class="event-meta">VIRUS BULLETIN · SEVILLE</div>
-              <h3>Break the Silence: Tracking Silent Lynx Through Exposed Infrastructure</h3>
-              <p>With Julian-Ferdinand Vögele · Oct 14 · 17:00</p>
-            </div>
-            <span class="event-arrow">↗</span>
-          </a>
+        <div class="event-list" data-mobile-carousel data-carousel-label="Speaking archive highlights">
           <a class="event-row event-logo-districtcon reveal" href="https://www.districtcon.org/speakers1#sz-session-1043385" target="_blank" rel="noreferrer">
             <div class="event-year">2026</div>
             <div class="event-main">
@@ -508,7 +525,7 @@
 
         <details class="event-archive reveal">
           <summary><span>Expand complete speaking archive</span><i>+15</i></summary>
-          <div>
+          <div data-mobile-carousel data-carousel-label="Complete speaking archive">
             <article class="event-row" data-event-mark="SAPS">
               <div class="event-year">2021</div>
               <div class="event-main"><div class="event-meta">SAPS SUMMIT</div><h3>YouTube Botnets Abuse Cloud</h3><p>Cloud-service abuse and botnet infrastructure</p></div>
@@ -602,7 +619,7 @@
       <section class="section media-section" id="media">
         <div class="section-heading reveal">
           <div>
-            <p class="section-number">03 / MEDIA</p>
+            <p class="section-number">04 / MEDIA</p>
             <h2>Conversations<br><em>&amp; transmissions.</em></h2>
           </div>
           <p class="section-summary">Recorded talks, interviews and reporting about threat tracking, attacker motivation and a life in security.</p>
@@ -626,7 +643,7 @@
             </div>
           </article>
 
-          <div class="video-playlist">
+          <div class="video-playlist" data-mobile-carousel data-carousel-label="Video archive">
             <div class="video-shelf-heading">
               <span>WATCH / VIDEO ARCHIVE</span>
               <p>Technical briefings, panels and conference recordings.</p>
@@ -661,7 +678,7 @@
 
         <div class="press-index reveal">
           <div class="press-index-heading"><span>INTERVIEWS / IN THE NEWS</span><p>Profiles, expert interviews and independent reporting on the research.</p></div>
-          <div class="press-grid">
+          <div class="press-grid" data-mobile-carousel data-carousel-label="Interviews and news">
             <a class="press-card press-card-featured" href="https://thehackernews.com/2026/04/uat-10362-targets-taiwanese-ngos-with.html" target="_blank" rel="noreferrer">
               <div class="press-thumb"><img src="/assets/media/press/thn-lucidrook.webp" alt="LucidRook malware campaign article illustration" loading="lazy"></div>
               <div class="press-content">
@@ -726,60 +743,6 @@
               </div>
             </a>
           </div>
-        </div>
-      </section>
-
-      <section class="section experience-section" id="experience">
-        <div class="experience-intro reveal">
-          <p class="section-number">04 / EXPERIENCE</p>
-          <h2>From regional signals<br>to <em>global intelligence.</em></h2>
-          <p>
-            A career spent tracking targeted attacks across APAC, hunting in-the-wild exploits and turning
-            technical observations into intelligence defenders can act on.
-          </p>
-        </div>
-
-        <div class="timeline reveal">
-          <article class="timeline-item is-current">
-            <div class="timeline-marker"><span></span></div>
-            <div class="timeline-date">2023—NOW</div>
-            <div class="timeline-content">
-              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-square"><img src="/assets/logos/talos.png" alt="Cisco Talos logo" loading="lazy"></span><p class="timeline-org">CISCO TALOS</p></div>
-              <h3>Security Research Engineering Technical Leader</h3>
-              <p>Emerging threats, nation-state operations, financially motivated crime and spyware campaigns.</p>
-              <div class="tag-list"><span>Threat research</span><span>Technical leadership</span></div>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-marker"><span></span></div>
-            <div class="timeline-date">PREVIOUS</div>
-            <div class="timeline-content">
-              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/google.svg" alt="Google logo" loading="lazy"></span><p class="timeline-org">THREAT ANALYSIS GROUP</p></div>
-              <h3>Security Engineer</h3>
-              <p>Hunted zero-day exploits used in the wild and tracked botnet activity.</p>
-              <div class="tag-list"><span>Exploit hunting</span><span>Botnets</span></div>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-marker"><span></span></div>
-            <div class="timeline-date">PREVIOUS</div>
-            <div class="timeline-content">
-              <div class="timeline-orgline timeline-brand-pair"><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/mandiant.svg" alt="Mandiant logo" loading="lazy"></span><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/fireeye.svg" alt="FireEye logo" loading="lazy"></span></div>
-              <h3>Global Research Team</h3>
-              <p>Tracked APAC threat groups and co-authored major research on APT41 and ICEFOG.</p>
-              <div class="tag-list"><span>APT41</span><span>ICEFOG</span></div>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-marker"><span></span></div>
-            <div class="timeline-date">FOUNDATION</div>
-            <div class="timeline-content">
-              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-teamt5"><img src="/assets/logos/teamt5.png" alt="TeamT5 logo" loading="lazy"></span><p class="timeline-org">TAIWAN</p></div>
-              <h3>Co-founder &amp; Senior Threat Analyst</h3>
-              <p>Focused on targeted attacks, malware analysis and emerging cyber-espionage activity in APAC.</p>
-              <div class="tag-list"><span>Reverse engineering</span><span>APAC</span></div>
-            </div>
-          </article>
         </div>
       </section>
 
@@ -867,6 +830,16 @@
               <small>IOS REVERSE ENGINEERING · OFFENSIVECON <i>↗</i></small>
             </a>
           </div>
+          <a class="mobile-social-profile social-profile-linkedin" href="https://www.linkedin.com/in/ashley-shen" target="_blank" rel="noreferrer">
+            <span class="social-profile-mark" aria-hidden="true">in</span>
+            <span><small>LINKEDIN</small><strong>Chi-en (Ashley) Shen</strong><em>Research and career updates</em></span>
+            <i aria-hidden="true">↗</i>
+          </a>
+          <a class="mobile-social-profile social-profile-bluesky" href="https://bsky.app/profile/ashl3y-shen.bsky.social" target="_blank" rel="noreferrer">
+            <span class="social-profile-mark" aria-hidden="true">bsky</span>
+            <span><small>BLUESKY</small><strong>@ashl3y-shen.bsky.social</strong><em>Security notes and field observations</em></span>
+            <i aria-hidden="true">↗</i>
+          </a>
         </div>
         <a class="linkedin-post reveal" href="https://www.linkedin.com/posts/ashley-shen_i-had-a-wonderful-time-at-the-offensivecon-activity-7462449007404048384-hGW1" target="_blank" rel="noreferrer">
           <div class="linkedin-post-meta"><span aria-hidden="true">in</span><time>MAY 19, 2026</time><b>MY ORIGINAL POST</b></div>
@@ -886,7 +859,7 @@
           <p class="section-summary">Conference talks, technical briefings, panels and community moments across Asia, Europe and the United States.</p>
         </div>
 
-        <div class="gallery-grid" data-gallery-grid>
+        <div class="gallery-grid" data-gallery-grid data-mobile-carousel data-carousel-label="Photo gallery">
           <button class="gallery-item gallery-feature reveal" type="button" data-gallery-item data-src="/assets/gallery/devcore-2025-stage.webp" data-caption="Exploit Hunter: How We Turn Your 0day into Nday — DEVCORE Conference, Taipei, 2025." aria-label="Open DEVCORE Conference 2025 photo">
             <img src="/assets/gallery/devcore-2025-stage.webp" alt="Ashley Shen presenting at DEVCORE Conference 2025" loading="lazy">
             <span><b>DEVCORE · TAIPEI · 2025</b><strong>Exploit Hunter</strong></span>
@@ -1015,10 +988,64 @@
         </div>
       </section>
 
+      <section class="section experience-section" id="experience">
+        <div class="experience-intro reveal">
+          <p class="section-number">09 / EXPERIENCE</p>
+          <h2>From regional signals<br>to <em>global intelligence.</em></h2>
+          <p>
+            A career spent tracking targeted attacks across APAC, hunting in-the-wild exploits and turning
+            technical observations into intelligence defenders can act on.
+          </p>
+        </div>
+
+        <div class="timeline reveal">
+          <article class="timeline-item is-current">
+            <div class="timeline-marker"><span></span></div>
+            <div class="timeline-date">2023—NOW</div>
+            <div class="timeline-content">
+              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-square"><img src="/assets/logos/talos.png" alt="Cisco Talos logo" loading="lazy"></span><p class="timeline-org">CISCO TALOS</p></div>
+              <h3>Security Research Engineering Technical Leader</h3>
+              <p>Emerging threats, nation-state operations, financially motivated crime and spyware campaigns.</p>
+              <div class="tag-list"><span>Threat research</span><span>Technical leadership</span></div>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-marker"><span></span></div>
+            <div class="timeline-date">PREVIOUS</div>
+            <div class="timeline-content">
+              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/google.svg" alt="Google logo" loading="lazy"></span><p class="timeline-org">THREAT ANALYSIS GROUP</p></div>
+              <h3>Security Engineer</h3>
+              <p>Hunted zero-day exploits used in the wild and tracked botnet activity.</p>
+              <div class="tag-list"><span>Exploit hunting</span><span>Botnets</span></div>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-marker"><span></span></div>
+            <div class="timeline-date">PREVIOUS</div>
+            <div class="timeline-content">
+              <div class="timeline-orgline timeline-brand-pair"><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/mandiant.svg" alt="Mandiant logo" loading="lazy"></span><span class="timeline-logo timeline-logo-wide"><img src="/assets/logos/fireeye.svg" alt="FireEye logo" loading="lazy"></span></div>
+              <h3>Global Research Team</h3>
+              <p>Tracked APAC threat groups and co-authored major research on APT41 and ICEFOG.</p>
+              <div class="tag-list"><span>APT41</span><span>ICEFOG</span></div>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-marker"><span></span></div>
+            <div class="timeline-date">FOUNDATION</div>
+            <div class="timeline-content">
+              <div class="timeline-orgline"><span class="timeline-logo timeline-logo-teamt5"><img src="/assets/logos/teamt5.png" alt="TeamT5 logo" loading="lazy"></span><p class="timeline-org">TAIWAN</p></div>
+              <h3>Co-founder &amp; Senior Threat Analyst</h3>
+              <p>Focused on targeted attacks, malware analysis and emerging cyber-espionage activity in APAC.</p>
+              <div class="tag-list"><span>Reverse engineering</span><span>APAC</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="contact-section" id="contact">
         <div class="contact-lines" aria-hidden="true"></div>
         <div class="contact-inner reveal">
-          <p class="section-number">09 / OPEN CHANNEL</p>
+          <p class="section-number">10 / OPEN CHANNEL</p>
           <h2>Let’s talk<br><em>security.</em></h2>
           <p>For research conversations, conference invitations and community collaboration.</p>
           <div class="contact-links">
