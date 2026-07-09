@@ -2,6 +2,8 @@
 
 Responsive personal site for cybersecurity researcher and technical leader Chi-en “Ashley” Shen.
 
+Live site: [ashley-920.github.io](https://ashley-920.github.io/)
+
 ## Run locally
 
 ```bash
