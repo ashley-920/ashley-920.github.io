@@ -191,12 +191,14 @@ const mobileCarousels = [...document.querySelectorAll('[data-mobile-carousel]')]
 mobileCarousels.forEach((carousel) => {
   const label = carousel.dataset.carouselLabel || 'items';
   const itemSelector = carousel.dataset.carouselItems;
+  const autoDelay = Number.parseInt(carousel.dataset.carouselInterval, 10) || 5200;
+  const shouldLoop = carousel.hasAttribute('data-carousel-loop');
   const controls = document.createElement('div');
   controls.className = 'mobile-carousel-controls';
   controls.innerHTML = `
-    <button type="button" data-carousel-prev aria-label="Previous ${label}">←</button>
+    <button type="button" data-carousel-prev aria-label="Previous ${label}">←︎</button>
     <span class="mobile-carousel-position" data-carousel-position>1 / 1</span>
-    <button type="button" data-carousel-next aria-label="Next ${label}">→</button>
+    <button type="button" data-carousel-next aria-label="Next ${label}">→︎</button>
   `;
   carousel.insertAdjacentElement('afterend', controls);
 
@@ -207,6 +209,8 @@ mobileCarousels.forEach((carousel) => {
   let userPaused = false;
   let timer = 0;
   let scrollFrame = 0;
+  let viewportFrame = 0;
+  let pointerOrigin = null;
 
   const slides = () => {
     const candidates = itemSelector ? [...carousel.querySelectorAll(itemSelector)] : [...carousel.children];
@@ -261,20 +265,30 @@ mobileCarousels.forEach((carousel) => {
     timer = 0;
   };
 
+  const isVisiblyInViewport = () => {
+    const bounds = carousel.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return false;
+    const visibleHeight = Math.max(0, Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, 0));
+    const visibleWidth = Math.max(0, Math.min(bounds.right, window.innerWidth) - Math.max(bounds.left, 0));
+    return visibleWidth > 0 && visibleHeight / Math.min(bounds.height, window.innerHeight) >= .35;
+  };
+
   const scheduleAuto = () => {
     clearAuto();
     if (!carousel.hasAttribute('data-carousel-autoplay')
       || !mobileViewport.matches
       || reducedMotion.matches
       || userPaused
-      || !inView
+      || (!inView && !isVisiblyInViewport())
       || document.hidden) return;
     const { items, index } = state();
-    if (index >= items.length - 1) return;
+    if (items.length <= 1 || (index >= items.length - 1 && !shouldLoop)) return;
     timer = window.setTimeout(() => {
-      goTo(state().index + 1);
+      const current = state();
+      const nextIndex = current.index >= current.items.length - 1 ? 0 : current.index + 1;
+      goTo(nextIndex);
       scheduleAuto();
-    }, 5200);
+    }, autoDelay);
   };
 
   const pauseAuto = () => {
@@ -290,7 +304,23 @@ mobileCarousels.forEach((carousel) => {
     pauseAuto();
     goTo(state().index + 1);
   });
-  ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach((type) => {
+  carousel.addEventListener('pointerdown', (event) => {
+    pointerOrigin = { x: event.clientX, y: event.clientY };
+  }, { passive: true });
+  carousel.addEventListener('pointermove', (event) => {
+    if (!pointerOrigin) return;
+    const horizontal = Math.abs(event.clientX - pointerOrigin.x);
+    const vertical = Math.abs(event.clientY - pointerOrigin.y);
+    if (horizontal > 12 && horizontal > vertical) {
+      pauseAuto();
+      pointerOrigin = null;
+    }
+  }, { passive: true });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach((type) => {
+    carousel.addEventListener(type, () => { pointerOrigin = null; }, { passive: true });
+  });
+  carousel.addEventListener('click', pauseAuto);
+  ['wheel', 'keydown', 'focusin'].forEach((type) => {
     carousel.addEventListener(type, pauseAuto, { passive: type !== 'keydown' });
   });
   carousel.addEventListener('scroll', () => {
@@ -303,6 +333,7 @@ mobileCarousels.forEach((carousel) => {
   carousel.addEventListener('carouselrefresh', (event) => {
     if (event.detail?.pause) pauseAuto();
     requestAnimationFrame(updateControls);
+    if (!event.detail?.pause) scheduleAuto();
   });
 
   const details = carousel.closest('details');
@@ -323,7 +354,18 @@ mobileCarousels.forEach((carousel) => {
     scheduleAuto();
   });
   reducedMotion.addEventListener('change', scheduleAuto);
+  if (carousel.hasAttribute('data-carousel-autoplay')) {
+    window.addEventListener('scroll', () => {
+      if (viewportFrame) return;
+      viewportFrame = requestAnimationFrame(() => {
+        viewportFrame = 0;
+        if (isVisiblyInViewport()) scheduleAuto();
+        else clearAuto();
+      });
+    }, { passive: true });
+  }
   updateControls();
+  scheduleAuto();
 });
 
 const showGalleryPhoto = (index) => {
