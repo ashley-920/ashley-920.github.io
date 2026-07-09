@@ -315,14 +315,24 @@ galleryDialog?.addEventListener('keydown', (event) => {
 });
 
 if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const floatingCursor = document.querySelector('[data-floating-cursor]');
   window.addEventListener(
     'pointermove',
     (event) => {
       document.documentElement.style.setProperty('--mouse-x', `${event.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${event.clientY}px`);
+      floatingCursor?.classList.add('is-visible');
     },
     { passive: true },
   );
+  window.addEventListener('pointerout', (event) => {
+    if (!event.relatedTarget) floatingCursor?.classList.remove('is-visible');
+  });
+  document.addEventListener('pointerover', (event) => {
+    const isInteractive = event.target instanceof Element
+      && Boolean(event.target.closest('a, button, input, summary, [role="button"]'));
+    floatingCursor?.classList.toggle('is-active', isInteractive);
+  });
 
   const tilt = document.querySelector('[data-tilt]');
   const portrait = tilt?.querySelector('.portrait-frame');
