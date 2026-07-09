@@ -242,7 +242,7 @@ img, svg { display: block; max-width: 100%; }
   position:absolute;
   z-index:-4;
   inset:0;
-  opacity:.155;
+  opacity:.2;
   pointer-events:none;
   background-color:#09070d;
   background-image:url("/assets/digital-rain-pink.webp");
@@ -1361,6 +1361,10 @@ img, svg { display: block; max-width: 100%; }
     grid-row:auto;
     height:20rem;
   }
+  .gallery-grid > .gallery-item.reveal {
+    opacity:1;
+    transform:none;
+  }
   .gallery-toggle { display:none; }
   .community-roles > article,
   .community-roles > article:nth-child(odd),
@@ -1378,7 +1382,7 @@ img, svg { display: block; max-width: 100%; }
 
   /* Keep the name and portrait together in the first mobile view. */
   .hero { gap:1rem; padding-top:2rem; padding-bottom:3rem; }
-  .hero-rain { opacity:.12; background-size:240px 192px; }
+  .hero-rain { opacity:.17; background-size:240px 192px; }
   .hero-name-lockup {
     display:grid;
     grid-template-columns:minmax(0,1fr) minmax(8.8rem,42vw);
