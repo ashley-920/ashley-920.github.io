@@ -18,11 +18,46 @@ const galleryItems = [...document.querySelectorAll('[data-gallery-item]')];
 const galleryDialog = document.querySelector('[data-gallery-dialog]');
 const galleryDialogImage = galleryDialog?.querySelector('figure img');
 const galleryDialogCaption = galleryDialog?.querySelector('figcaption');
+const mobileSocialPosts = document.querySelector('[data-mobile-social-posts]');
 const mobileViewport = window.matchMedia('(max-width: 640px)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let activeGalleryIndex = 0;
 
 document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+const socialDateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: '2-digit',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+const updateMobileSocialPosts = async () => {
+  if (!mobileSocialPosts) return;
+
+  const response = await fetch(new URL('social-posts.json', document.baseURI), { cache: 'no-store' });
+  if (!response.ok) throw new Error(`Social feed request failed: ${response.status}`);
+
+  const { posts = {} } = await response.json();
+  Object.entries(posts).forEach(([platform, post]) => {
+    const card = mobileSocialPosts.querySelector(`[data-social-platform="${platform}"]`);
+    if (!card || !post?.url || !post?.text || !post?.date) return;
+
+    const date = new Date(post.date);
+    const time = card.querySelector('time');
+    card.href = post.url;
+    card.querySelector('p').textContent = post.text;
+    card.querySelector('.mobile-social-post-handle').textContent = post.handle || '';
+    if (!Number.isNaN(date.getTime()) && time) {
+      time.dateTime = post.date.slice(0, 10);
+      time.textContent = socialDateFormatter.format(date).toUpperCase();
+    }
+  });
+};
+
+updateMobileSocialPosts().catch(() => {
+  // The verified HTML fallback remains visible if a public feed is unavailable.
+});
 
 const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
 updateHeader();
