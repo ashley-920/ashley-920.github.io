@@ -206,7 +206,6 @@ mobileCarousels.forEach((carousel) => {
   const next = controls.querySelector('[data-carousel-next]');
   const position = controls.querySelector('[data-carousel-position]');
   let inView = false;
-  let userPaused = false;
   let timer = 0;
   let scrollFrame = 0;
   let viewportFrame = 0;
@@ -274,16 +273,16 @@ mobileCarousels.forEach((carousel) => {
   };
 
   const scheduleAuto = () => {
-    clearAuto();
+    if (timer) return;
     if (!carousel.hasAttribute('data-carousel-autoplay')
       || !mobileViewport.matches
       || reducedMotion.matches
-      || userPaused
       || (!inView && !isVisiblyInViewport())
       || document.hidden) return;
     const { items, index } = state();
     if (items.length <= 1 || (index >= items.length - 1 && !shouldLoop)) return;
     timer = window.setTimeout(() => {
+      timer = 0;
       const current = state();
       const nextIndex = current.index >= current.items.length - 1 ? 0 : current.index + 1;
       goTo(nextIndex);
@@ -291,18 +290,18 @@ mobileCarousels.forEach((carousel) => {
     }, autoDelay);
   };
 
-  const pauseAuto = () => {
-    userPaused = true;
+  const restartAuto = () => {
     clearAuto();
+    scheduleAuto();
   };
 
   previous.addEventListener('click', () => {
-    pauseAuto();
     goTo(state().index - 1);
+    restartAuto();
   });
   next.addEventListener('click', () => {
-    pauseAuto();
     goTo(state().index + 1);
+    restartAuto();
   });
   carousel.addEventListener('pointerdown', (event) => {
     pointerOrigin = { x: event.clientX, y: event.clientY };
@@ -312,16 +311,16 @@ mobileCarousels.forEach((carousel) => {
     const horizontal = Math.abs(event.clientX - pointerOrigin.x);
     const vertical = Math.abs(event.clientY - pointerOrigin.y);
     if (horizontal > 12 && horizontal > vertical) {
-      pauseAuto();
+      restartAuto();
       pointerOrigin = null;
     }
   }, { passive: true });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach((type) => {
     carousel.addEventListener(type, () => { pointerOrigin = null; }, { passive: true });
   });
-  carousel.addEventListener('click', pauseAuto);
+  carousel.addEventListener('click', restartAuto);
   ['wheel', 'keydown', 'focusin'].forEach((type) => {
-    carousel.addEventListener(type, pauseAuto, { passive: type !== 'keydown' });
+    carousel.addEventListener(type, restartAuto, { passive: type !== 'keydown' });
   });
   carousel.addEventListener('scroll', () => {
     if (scrollFrame) return;
@@ -331,9 +330,9 @@ mobileCarousels.forEach((carousel) => {
     });
   }, { passive: true });
   carousel.addEventListener('carouselrefresh', (event) => {
-    if (event.detail?.pause) pauseAuto();
     requestAnimationFrame(updateControls);
-    if (!event.detail?.pause) scheduleAuto();
+    if (event.detail?.pause) restartAuto();
+    else scheduleAuto();
   });
 
   const details = carousel.closest('details');
@@ -354,6 +353,7 @@ mobileCarousels.forEach((carousel) => {
     scheduleAuto();
   });
   reducedMotion.addEventListener('change', scheduleAuto);
+  window.addEventListener('pageshow', scheduleAuto);
   if (carousel.hasAttribute('data-carousel-autoplay')) {
     window.addEventListener('scroll', () => {
       if (viewportFrame) return;
