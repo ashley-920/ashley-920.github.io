@@ -701,6 +701,8 @@ img, svg { display: block; max-width: 100%; }
 .timeline-marker { position: relative; z-index: 2; padding-top: 0.3rem; }
 .timeline-marker span { display: block; width: 15px; height: 15px; border: 1px solid #8f828f; border-radius: 50%; background: var(--paper); }
 .timeline-item.is-current .timeline-marker span { border-color: #b1276d; background: #b1276d; box-shadow: 0 0 0 7px rgba(177,39,109,.12); }
+.timeline-item.is-advisory .timeline-marker span { border-color:#148d91; background:var(--paper); box-shadow:0 0 0 6px rgba(20,141,145,.1); }
+.timeline-item.is-advisory .timeline-date { color:#14777c; }
 .timeline-date { padding-top: 0.25rem; color: #8f828f; font: 400 0.58rem/1 var(--mono); letter-spacing: 0.08em; }
 .timeline-org { margin: 0 0 0.65rem; color: #9d3269; font: 500 0.65rem/1 var(--mono); letter-spacing: 0.08em; }
 .timeline-orgline { min-height:2.45rem; display:flex; align-items:center; gap:.75rem; margin:0 0 .9rem; }
@@ -710,8 +712,11 @@ img, svg { display: block; max-width: 100%; }
 .timeline-logo-square { width:2.25rem; padding:.25rem; }
 .timeline-logo-wide { width:6.8rem; }
 .timeline-logo-teamt5 { width:6.8rem; }
+.timeline-logo-rayvenx { width:7.8rem; height:2.55rem; }
+.timeline-logo-rayvenx img { filter:brightness(.58) saturate(1.25); }
 .timeline-brand-pair { gap:.5rem; }
 .timeline-content h3 { margin: 0; font: 600 clamp(1.35rem, 1.9vw, 1.95rem)/1.15 var(--display); letter-spacing: -0.04em; }
+.timeline-content h3 a { color:inherit; }
 .timeline-content > p:not(.timeline-org) { max-width: 37rem; margin: .75rem 0 1rem; color: #716873; line-height: 1.6; }
 .experience-section .tag-list span { border-color: rgba(17,13,23,.16); color: #5d555f; }
 
