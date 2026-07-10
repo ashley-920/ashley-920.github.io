@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ashley.hacksbetweenus.com/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-10</lastmod>
+    <image:image>
+      <image:loc>https://ashley.hacksbetweenus.com/assets/ashley-shen-search-profile.jpg</image:loc>
+      <image:title>Portrait of Chi-en Ashley Shen</image:title>
+    </image:image>
   </url>
 </urlset>
