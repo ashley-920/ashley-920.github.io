@@ -3,7 +3,13 @@ import { readFile, writeFile } from 'node:fs/promises';
 const outputPath = new URL('../public/social-posts.json', import.meta.url);
 const profileHandle = 'ashl3y_shen';
 const blueskyHandle = 'ashl3y-shen.bsky.social';
-const linkedInProfile = 'ashley-shen';
+const blueskyDid = 'did:plc:2fe5hyelypbdbmppxi4qmdu5';
+const xBearerToken = process.env.X_BEARER_TOKEN?.trim() || '';
+const manualLinkedIn = {
+  url: process.env.LINKEDIN_MANUAL_URL?.trim() || '',
+  date: process.env.LINKEDIN_MANUAL_DATE?.trim() || '',
+  text: process.env.LINKEDIN_MANUAL_TEXT?.trim() || '',
+};
 
 const decodeEntities = (value = '') => value
   .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
@@ -33,9 +39,49 @@ const requestText = async (url, headers = {}) => {
   return response.text();
 };
 
+const requestJson = async (url, headers = {}) => {
+  const response = await fetch(url, {
+    headers: {
+      accept: 'application/json',
+      ...headers,
+    },
+    signal: AbortSignal.timeout(20000),
+  });
+  if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+  return response.json();
+};
+
 const firstMatch = (value, expression) => value.match(expression)?.[1]?.trim() || '';
 
-const fetchLatestXPost = async () => {
+const fetchLatestXApiPost = async () => {
+  if (!xBearerToken) throw new Error('X_BEARER_TOKEN is not configured');
+
+  const headers = { authorization: `Bearer ${xBearerToken}` };
+  const user = await requestJson(
+    `https://api.x.com/2/users/by/username/${profileHandle}`,
+    headers,
+  );
+  const userId = user?.data?.id;
+  if (!userId) throw new Error('X user lookup returned no user ID');
+
+  const timeline = await requestJson(
+    `https://api.x.com/2/users/${userId}/tweets?exclude=retweets,replies&max_results=5&tweet.fields=created_at`,
+    headers,
+  );
+  const post = timeline?.data?.find(({ id, text, created_at: createdAt }) => id && text && createdAt);
+  if (!post) throw new Error('X API returned no original post');
+
+  return {
+    platform: 'X',
+    handle: `@${profileHandle}`,
+    date: new Date(post.created_at).toISOString(),
+    url: `https://x.com/${profileHandle}/status/${post.id}`,
+    text: normalizeText(post.text),
+    source: 'x-api',
+  };
+};
+
+const fetchLatestXNitterPost = async () => {
   const rss = await requestText(`https://nitter.net/${profileHandle}/rss`);
   const items = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map((match) => match[1]);
 
@@ -56,48 +102,52 @@ const fetchLatestXPost = async () => {
       date: date.toISOString(),
       url: `https://x.com/${profileHandle}/status/${statusId}`,
       text,
+      source: 'nitter-fallback',
     };
   }
 
   throw new Error('No original X post found');
 };
 
-const fetchLatestLinkedInPost = async () => {
-  const html = await requestText(`https://www.linkedin.com/in/${linkedInProfile}/recent-activity/posts/`, {
-    'accept-language': 'en-US,en;q=0.9',
-  });
-  const scripts = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
-  const posts = [];
+const fetchLatestXPost = async () => {
+  const failures = [];
 
-  scripts.forEach(([, source]) => {
+  if (xBearerToken) {
     try {
-      const value = JSON.parse(source.trim());
-      const nodes = Array.isArray(value?.['@graph']) ? value['@graph'] : [value];
-      nodes.forEach((node) => {
-        const authorUrl = node?.author?.url || '';
-        const isOwnPost = node?.['@type'] === 'DiscussionForumPosting'
-          && authorUrl.includes(`/in/${linkedInProfile}`)
-          && node.mainEntityOfPage
-          && node.text
-          && node.datePublished;
-        if (isOwnPost) posts.push(node);
-      });
-    } catch {
-      // Ignore unrelated or malformed structured-data blocks.
+      return await fetchLatestXApiPost();
+    } catch (error) {
+      failures.push(`X API: ${error.message}`);
     }
-  });
+  }
 
-  posts.sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished));
-  const post = posts[0];
-  if (!post) throw new Error('No original LinkedIn post found');
+  try {
+    return await fetchLatestXNitterPost();
+  } catch (error) {
+    failures.push(`RSS fallback: ${error.message}`);
+  }
 
-  const firstParagraph = String(post.text).split(/\n\s*\n/).map(normalizeText).find(Boolean);
+  throw new Error(failures.join('; ') || 'No X source available');
+};
+
+const fetchLatestLinkedInPost = async () => {
+  if (!manualLinkedIn.url && !manualLinkedIn.date && !manualLinkedIn.text) {
+    throw new Error('LinkedIn has no public personal-post feed; use the workflow form for a new authored post');
+  }
+  if (!manualLinkedIn.url.startsWith('https://www.linkedin.com/posts/')) {
+    throw new Error('LinkedIn URL must start with https://www.linkedin.com/posts/');
+  }
+  const date = new Date(manualLinkedIn.date);
+  if (Number.isNaN(date.getTime())) throw new Error('LinkedIn date is invalid');
+  const text = normalizeText(manualLinkedIn.text);
+  if (!text) throw new Error('LinkedIn text is empty');
+
   return {
     platform: 'LinkedIn',
-    handle: post.author?.name || 'Chi En (Ashley) S.',
-    date: new Date(post.datePublished).toISOString(),
-    url: post.mainEntityOfPage,
-    text: firstParagraph || normalizeText(post.text),
+    handle: 'Chi En (Ashley) S.',
+    date: date.toISOString(),
+    url: manualLinkedIn.url,
+    text,
+    source: 'manual-verified',
   };
 };
 
@@ -108,7 +158,11 @@ const fetchLatestBlueskyPost = async () => {
   );
   if (!response.ok) throw new Error(`Bluesky returned ${response.status}`);
   const { feed = [] } = await response.json();
-  const item = feed.find(({ reason, post }) => !reason && post?.author?.handle === blueskyHandle);
+  const item = feed.find(({ reason, post }) => (
+    !reason
+    && post?.author?.did === blueskyDid
+    && !post?.record?.reply
+  ));
   const record = item?.post?.record;
   const rkey = item?.post?.uri?.split('/').pop();
   if (!record?.text || !record?.createdAt || !rkey) throw new Error('No original Bluesky post found');
@@ -119,6 +173,7 @@ const fetchLatestBlueskyPost = async () => {
     date: new Date(record.createdAt).toISOString(),
     url: `https://bsky.app/profile/${blueskyHandle}/post/${rkey}`,
     text: normalizeText(record.text),
+    source: 'bluesky-public-api',
   };
 };
 
@@ -132,10 +187,20 @@ const sources = {
 
 for (const [platform, load] of Object.entries(sources)) {
   try {
-    nextPosts[platform] = await load();
-    console.log(`Refreshed ${platform}: ${nextPosts[platform].url}`);
+    const candidate = await load();
+    const previousDate = new Date(nextPosts[platform]?.date || 0);
+    const candidateDate = new Date(candidate.date);
+    if (!Number.isNaN(previousDate.getTime()) && candidateDate < previousDate) {
+      throw new Error(`source returned an older post (${candidate.date})`);
+    }
+    nextPosts[platform] = candidate;
+    console.log(`Refreshed ${platform} via ${candidate.source}: ${candidate.url}`);
   } catch (error) {
     console.warn(`Keeping last verified ${platform} post: ${error.message}`);
+    if (process.env.GITHUB_ACTIONS) {
+      const message = String(error.message).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+      console.log(`::warning title=${platform} feed kept last verified post::${message}`);
+    }
   }
 }
 

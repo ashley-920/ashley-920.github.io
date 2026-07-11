@@ -4,6 +4,19 @@ on:
   schedule:
     - cron: "23 */6 * * *"
   workflow_dispatch:
+    inputs:
+      linkedin_url:
+        description: "Optional: URL of a new original LinkedIn post"
+        required: false
+        type: string
+      linkedin_date:
+        description: "Optional: publication date in YYYY-MM-DD format"
+        required: false
+        type: string
+      linkedin_text:
+        description: "Optional: post text or a concise first-paragraph excerpt"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -26,6 +39,11 @@ jobs:
           node-version: 22
 
       - name: Refresh latest original posts
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          LINKEDIN_MANUAL_URL: ${{ inputs.linkedin_url }}
+          LINKEDIN_MANUAL_DATE: ${{ inputs.linkedin_date }}
+          LINKEDIN_MANUAL_TEXT: ${{ inputs.linkedin_text }}
         run: node scripts/update-social-posts.mjs
 
       - name: Commit feed changes
