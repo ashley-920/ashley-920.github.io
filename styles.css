@@ -712,7 +712,6 @@ img, svg { display: block; max-width: 100%; }
 .timeline-logo-square { width:2.25rem; padding:.25rem; }
 .timeline-logo-wide { width:6.8rem; }
 .timeline-logo-teamt5 { width:6.8rem; }
-.timeline-logo-rayvenx { width:7.8rem; height:2.55rem; }
 .timeline-logo-rayvenx img { filter:brightness(.58) saturate(1.25); }
 .timeline-brand-pair { gap:.5rem; }
 .timeline-content h3 { margin: 0; font: 600 clamp(1.35rem, 1.9vw, 1.95rem)/1.15 var(--display); letter-spacing: -0.04em; }
