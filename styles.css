@@ -755,7 +755,7 @@ img, svg { display: block; max-width: 100%; }
 .event-row[href*="vis.ethz"] .event-year::after { content:"VISCON"; color:#ffd84d; }
 .event-row[href*="hitcon"] .event-year::after { background-image:url("/assets/logos/hitcon-white.svg"); }
 .event-row[href*="OuIIRz5Bb3E"] .event-year::after { background-image:url("/assets/logos/confidence.png"); }
-.event-row[href*="summit.fireeye"] .event-year::after { background-image:url("/assets/logos/fireeye.svg"); filter:brightness(0) invert(1); }
+.event-row[href*="aIorH4tC8pM"] .event-year::after { background-image:url("/assets/logos/fireeye.svg"); filter:brightness(0) invert(1); }
 .event-row[href*="codeblue"] .event-year::after,
 .event-row[href*="code-blue"] .event-year::after { background-image:url("/assets/logos/codeblue.svg"); }
 .event-row[href*="first.org"] .event-year::after { background-image:url("/assets/logos/first-negative.svg"); }
