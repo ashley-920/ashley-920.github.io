@@ -105,6 +105,46 @@ const updateSocialPosts = async () => {
 
 updateSocialPosts();
 
+const refreshDatedEvents = () => {
+  const now = Date.now();
+
+  document.querySelectorAll('.signal-group').forEach((group) => {
+    const visibleEvents = [...group.querySelectorAll('[data-event-end]')].filter((event) => {
+      const end = Date.parse(event.dataset.eventEnd);
+      const isVisible = Number.isNaN(end) || now < end;
+      event.hidden = !isVisible;
+      if (event.nextElementSibling?.tagName === 'I') event.nextElementSibling.hidden = !isVisible;
+      return isVisible;
+    });
+
+    visibleEvents.forEach((event, index) => {
+      const label = event.dataset.eventLabel;
+      const heading = event.querySelector('b');
+      if (heading && label) heading.textContent = `${index === 0 ? 'UP NEXT · ' : ''}${label}`;
+    });
+  });
+
+  const upcomingList = document.querySelector('#upcoming .event-list');
+  const visibleUpcoming = [...document.querySelectorAll('#upcoming [data-event-end]')].filter((event) => {
+    const end = Date.parse(event.dataset.eventEnd);
+    const isVisible = Number.isNaN(end) || now < end;
+    event.hidden = !isVisible;
+    return isVisible;
+  });
+
+  visibleUpcoming.forEach((event, index) => {
+    const status = event.querySelector('[data-event-status]');
+    if (status) status.textContent = index === 0 ? 'UP NEXT' : 'UPCOMING';
+  });
+  upcomingList?.dispatchEvent(new Event('carouselrefresh'));
+};
+
+refreshDatedEvents();
+window.setInterval(refreshDatedEvents, 60 * 60 * 1000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) refreshDatedEvents();
+});
+
 const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });

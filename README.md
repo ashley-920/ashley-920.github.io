@@ -54,6 +54,17 @@ To configure reliable X updates with an X developer bearer token:
 gh secret set X_BEARER_TOKEN --repo ashley-920/ashley-920.github.io
 ```
 
+## Event rollover
+
+Upcoming-event rows and marquee links carry ISO 8601 `data-event-start` and
+`data-event-end` timestamps. `main.js` checks those timestamps on page load,
+hourly, and whenever a visitor returns to the tab. Expired appearances are
+hidden automatically and the next visible event is promoted to `UP NEXT`.
+
+Add completed appearances to the Speaking section when publishing a site
+update so the historical archive remains useful. A future data-file and
+scheduled-build refactor could automate that archival step as well.
+
 ## Deployment
 
 Pushes to `main` deploy automatically to GitHub Pages through
