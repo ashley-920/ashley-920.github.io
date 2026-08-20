@@ -4,6 +4,7 @@ const outputPath = new URL('../public/social-posts.json', import.meta.url);
 const profileHandle = 'ashl3y_shen';
 const blueskyHandle = 'ashl3y-shen.bsky.social';
 const blueskyDid = 'did:plc:2fe5hyelypbdbmppxi4qmdu5';
+const xEpochMs = 1288834974657n;
 const xBearerToken = process.env.X_BEARER_TOKEN?.trim() || '';
 const manualLinkedIn = {
   url: process.env.LINKEDIN_MANUAL_URL?.trim() || '',
@@ -81,6 +82,46 @@ const fetchLatestXApiPost = async () => {
   };
 };
 
+const fetchLatestXPublicProfilePost = async () => {
+  const html = await requestText(`https://x.com/${profileHandle}`, {
+    accept: 'text/html,application/xhtml+xml',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  });
+  const detailsExpression = /"client:([A-Za-z0-9+/=]+):details":[\s\S]{0,2500}?created_at_ms:(\d+),[\s\S]{0,2500}?full_text:"((?:\\.|[^"\\])*)"/g;
+  const posts = [];
+
+  for (const match of html.matchAll(detailsExpression)) {
+    const entityKey = Buffer.from(match[1], 'base64').toString('utf8');
+    const statusId = entityKey.match(/^Tweet:(\d+)$/)?.[1];
+    if (!statusId) continue;
+
+    const createdAtMs = Number(match[2]);
+    const snowflakeCreatedAtMs = Number((BigInt(statusId) >> 22n) + xEpochMs);
+    if (!Number.isFinite(createdAtMs) || Math.abs(createdAtMs - snowflakeCreatedAtMs) > 60000) continue;
+
+    let text = '';
+    try {
+      text = normalizeText(JSON.parse(`"${match[3]}"`));
+    } catch {
+      continue;
+    }
+    if (!text) continue;
+
+    posts.push({
+      platform: 'X',
+      handle: `@${profileHandle}`,
+      date: new Date(createdAtMs).toISOString(),
+      url: `https://x.com/${profileHandle}/status/${statusId}`,
+      text,
+      source: 'x-public-profile',
+    });
+  }
+
+  const post = posts.sort((left, right) => right.date.localeCompare(left.date))[0];
+  if (!post) throw new Error('X public profile returned no original post');
+  return post;
+};
+
 const fetchLatestXNitterPost = async () => {
   const rss = await requestText(`https://nitter.net/${profileHandle}/rss`);
   const items = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/gi)].map((match) => match[1]);
@@ -118,6 +159,12 @@ const fetchLatestXPost = async () => {
     } catch (error) {
       failures.push(`X API: ${error.message}`);
     }
+  }
+
+  try {
+    return await fetchLatestXPublicProfilePost();
+  } catch (error) {
+    failures.push(`Public profile: ${error.message}`);
   }
 
   try {
