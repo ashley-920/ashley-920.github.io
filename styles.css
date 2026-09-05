@@ -743,6 +743,7 @@ img, svg { display: block; max-width: 100%; }
 .event-row[href*="crowdstrike"] .event-year::after { background-image:url("/assets/logos/dayzero.svg"); }
 .event-row[href*="cert.europa.eu"] .event-year::after { width:7.2rem; height:2.5rem; background-image:url("/assets/logos/cert-eu.svg"); background-size:contain; }
 .event-row[href*="virusbulletin"] .event-year::after { background-image:url("/assets/logos/virus-bulletin.png"); }
+.event-row[href*="stateofstatecraft"] .event-year::after { width:7.2rem; height:2.5rem; background-image:url("/assets/logos/state-of-statecraft.webp"); background-size:contain; }
 .event-row[href*="blackhat"] .event-year::after,
 .event-row[href*="JNAIYRjaQ-4"] .event-year::after { background-image:url("/assets/logos/blackhat.svg"); filter:brightness(0) invert(1); }
 .event-row[href*="pivotcon"] .event-year::after { background-image:url("/assets/logos/pivotcon.svg"); }
