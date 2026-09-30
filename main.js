@@ -464,7 +464,7 @@ const showGalleryPhoto = (index) => {
   activeGalleryIndex = (index + galleryItems.length) % galleryItems.length;
   const item = galleryItems[activeGalleryIndex];
   const thumbnail = item.querySelector('img');
-  galleryDialogImage.src = item.dataset.src;
+  galleryDialogImage.src = thumbnail?.currentSrc || thumbnail?.src || item.dataset.src;
   galleryDialogImage.alt = thumbnail?.alt || '';
   galleryDialogCaption.textContent = item.dataset.caption || '';
   if (!galleryDialog.open) galleryDialog.showModal();
