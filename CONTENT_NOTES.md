@@ -1,9 +1,9 @@
 # Content notes
 
-Content was researched from public sources through 2026-09-05 and separated by evidence type:
+Content was researched from public sources through 2026-09-30 and separated by evidence type:
 
-- **17 authored publications:** 12 Cisco Talos posts, one Google TAG post, two Mandiant/FireEye posts and two IEEE papers.
-- **Public speaking:** three upcoming 2026 appearances and a verified archive extending to HITCON/CODE BLUE in 2015.
+- **18 authored publications:** 13 Cisco Talos posts, one Google TAG post, two Mandiant/FireEye posts and two IEEE papers.
+- **Public speaking:** four upcoming 2026 appearances and a verified archive extending to HITCON/CODE BLUE in 2015.
 - **Recordings:** five verified YouTube videos and one direct TROOPERS recording.
 - **Media:** podcast appearances, a 12-episode Mandarin podcast project linked to Ashley by Malspace, profiles, research interviews, recent X posts and news coverage.
 - **Community:** HITCON GIRLS co-founder and Rhacklette organizer.

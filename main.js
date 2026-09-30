@@ -2,6 +2,7 @@ const header = document.querySelector('[data-header]');
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.site-nav');
 const researchGrid = document.querySelector('[data-research-grid]');
+const archivedResearchCount = researchGrid?.querySelectorAll('.research-more').length ?? 0;
 const archiveToggle = document.querySelector('[data-archive-toggle]');
 const filterButtons = [...document.querySelectorAll('[data-filter]')];
 const researchCards = [...document.querySelectorAll('.research-card')];
@@ -207,7 +208,7 @@ archiveToggle?.addEventListener('click', () => {
   archiveToggle.querySelector('span:first-child').textContent = isExpanded
     ? 'Expand research archive'
     : 'Collapse research archive';
-  archiveToggle.querySelector('.archive-count').textContent = isExpanded ? '+9' : '−9';
+  archiveToggle.querySelector('.archive-count').textContent = `${isExpanded ? '+' : '−'}${archivedResearchCount}`;
 });
 
 referenceToggle?.addEventListener('click', () => {
@@ -227,12 +228,12 @@ filterButtons.forEach((button) => {
       researchGrid.classList.add('is-expanded');
       archiveToggle.setAttribute('aria-expanded', 'true');
       archiveToggle.querySelector('span:first-child').textContent = 'Collapse research archive';
-      archiveToggle.querySelector('.archive-count').textContent = '−9';
+      archiveToggle.querySelector('.archive-count').textContent = `−${archivedResearchCount}`;
     } else if (mobileViewport.matches) {
       researchGrid.classList.remove('is-expanded');
       archiveToggle.setAttribute('aria-expanded', 'false');
       archiveToggle.querySelector('span:first-child').textContent = 'Expand research archive';
-      archiveToggle.querySelector('.archive-count').textContent = '+9';
+      archiveToggle.querySelector('.archive-count').textContent = `+${archivedResearchCount}`;
     }
 
     featureResearch.hidden = filter !== 'all' && !featureResearch.dataset.category.includes(filter);
@@ -250,10 +251,14 @@ filterButtons.forEach((button) => {
 
 galleryToggle?.addEventListener('click', () => {
   const isExpanded = galleryToggle.getAttribute('aria-expanded') === 'true';
+  const primaryCount = galleryItems.filter((item) => !item.classList.contains('gallery-more')).length;
+  const additionalCount = galleryItems.length - primaryCount;
   galleryToggle.setAttribute('aria-expanded', String(!isExpanded));
   galleryGrid.classList.toggle('is-expanded', !isExpanded);
-  galleryToggle.querySelector('span').textContent = isExpanded ? 'Show all 16 photos' : 'Show first 8 photos';
-  galleryToggle.querySelector('i').textContent = isExpanded ? '+8' : '−8';
+  galleryToggle.querySelector('span').textContent = isExpanded
+    ? `Show all ${galleryItems.length} photos`
+    : `Show first ${primaryCount} photos`;
+  galleryToggle.querySelector('i').textContent = `${isExpanded ? '+' : '−'}${additionalCount}`;
   requestAnimationFrame(() => {
     if (mobileViewport.matches) {
       if (isExpanded) {
