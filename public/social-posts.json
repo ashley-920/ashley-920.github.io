@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T21:24:54.371Z",
+  "updatedAt": "2026-10-14T21:48:02.535Z",
   "posts": {
     "x": {
       "platform": "X",
@@ -20,9 +20,9 @@
     "bluesky": {
       "platform": "Bluesky",
       "handle": "@ashl3y-shen.bsky.social",
-      "date": "2026-02-05T13:01:55.815Z",
-      "url": "https://bsky.app/profile/ashl3y-shen.bsky.social/post/3me4h5jltms2b",
-      "text": "🔥 NEW research published: We uncover #DKnife, a China-nexus gateway-monitoring framework that intercepts network traffic, monitors user activity, and delivers malware #Shadowpad & #DarkNimbus via routers and edge devices. blog.talosintelligence.com/knife-cuttin...",
+      "date": "2026-10-14T17:47:47.952Z",
+      "url": "https://bsky.app/profile/ashl3y-shen.bsky.social/post/3mxu45rtqgs2i",
+      "text": "Happy to finally publish our research together!",
       "source": "bluesky-public-api"
     }
   }
