@@ -1,15 +1,21 @@
 # Content notes
 
-Content was researched from public sources through 2026-09-30 and separated by evidence type:
+Content was researched from public sources through 2026-10-22 and separated by evidence type:
 
-- **18 authored publications:** 13 Cisco Talos posts, one Google TAG post, two Mandiant/FireEye posts and two IEEE papers.
-- **Public speaking:** four upcoming 2026 appearances and a verified archive extending to HITCON/CODE BLUE in 2015.
+- **19 authored publications:** 14 Cisco Talos posts, one Google TAG post, two Mandiant/FireEye posts and two IEEE papers.
+- **Public speaking:** one upcoming 2026 appearance, three completed October 2026 appearances, and a verified archive extending to HITCON/CODE BLUE in 2015.
 - **Recordings:** five verified YouTube videos and one direct TROOPERS recording.
 - **Media:** podcast appearances, a 12-episode Mandarin podcast project linked to Ashley by Malspace, profiles, research interviews, recent X posts and news coverage.
 - **Community:** HITCON GIRLS co-founder and Rhacklette organizer.
 - **Program roles:** Black Hat USA/Asia, HITCON, HITB, BlueHatIL and State of Statecraft review boards; BlueHat Shanghai 2019 Content Advisory Board.
 
 Every publication, event, recording and role in the mockup links to its public source.
+
+## 2026-10-27 content handover
+
+- Moved the completed CERT-EU Annual Conference, Virus Bulletin and State of Statecraft appearances from Upcoming Events into the Speaking archive.
+- Kept Black Hat Europe (Dec 9–10) as the only upcoming appearance.
+- Added the Oct 14 Cisco Talos/Recorded Future UAT-6275 research as the latest feature and retained the Sep 30 Antino research in the archive.
 
 The current portrait is the 400×400 image served by Ashley's public X profile and is marked as temporary. The community cards use the unmodified official HITCON GIRLS and Rhacklette logos from their respective sites.
 
