@@ -15,6 +15,7 @@ Every publication, event, recording and role in the mockup links to its public s
 
 - Moved the completed CERT-EU Annual Conference and Virus Bulletin appearances from Upcoming Events into the Speaking archive; State of Statecraft remains represented only as a review-board role.
 - Added Cisco’s Securing the Agentic Era roadshow in Zurich (Nov 12) as an upcoming speaking appearance; Black Hat Europe (Dec 9–10) remains upcoming.
+- Added Black Hat Asia 2027 (Feb 28–Mar 3, Singapore) as an upcoming attending event, separate from speaking appearances.
 - Added the Oct 14 Cisco Talos/Recorded Future UAT-6275 research as the latest feature and retained the Sep 30 Antino research in the archive.
 
 The current portrait is the 400×400 image served by Ashley's public X profile and is marked as temporary. The community cards use the unmodified official HITCON GIRLS and Rhacklette logos from their respective sites.
