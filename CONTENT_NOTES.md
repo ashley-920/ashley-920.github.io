@@ -1,5 +1,9 @@
 # Content notes
 
+## 2026-10-29 content handover
+
+- Added the supplied CERT-EU conference speaking photo to the public photo gallery. The card uses a general 2026 caption because no talk title was provided.
+
 Content was researched from public sources through 2026-10-22 and separated by evidence type:
 
 - **19 authored publications:** 14 Cisco Talos posts, one Google TAG post, two Mandiant/FireEye posts and two IEEE papers.
