@@ -3,6 +3,7 @@
 ## 2026-11-25 content handover
 
 - The UZH event logo (`assets/logos/uzh-white.svg`) is the unmodified white UZH logo served by the event host, cybersecurity.dsi.uzh.ch.
+- The Beers with Talos guest episode (Nov 12, 2026) uses the title, date and running time (1:14:24) from the show's Buzzsprout feed; the cover is the official show artwork resized to 600 × 600.
 - The Cisco Agentic AI Roadshow talk (Nov 12) has passed and auto-hides from Upcoming Events. It is intentionally not added to the Speaking archive.
 
 ## 2026-10-29 content handover
