@@ -547,7 +547,6 @@ img, svg { display: block; max-width: 100%; }
 
 .research-section { padding-top: clamp(2.75rem, 4vw, 4rem); background: var(--ink); }
 .research-mobile-shelf { display:contents; }
-.research-label { margin-bottom: 1.25rem; }
 #latest-research { scroll-margin-top: 1.5rem; }
 .filter-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 1.6rem; }
 .filter-chip {
