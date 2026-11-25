@@ -5,6 +5,8 @@
 - The UZH event logo (`assets/logos/uzh-white.svg`) is the unmodified white UZH logo served by the event host, cybersecurity.dsi.uzh.ch.
 - The Beers with Talos guest episode (Nov 12, 2026) uses the title, date and running time (1:14:24) from the show's Buzzsprout feed; the cover is the official show artwork resized to 600 × 600.
 - The Cisco Agentic AI Roadshow talk (Nov 12) has passed and auto-hides from Upcoming Events. It is intentionally not added to the Speaking archive.
+- Honors band: the LABScon image is photo 1 of the Sep 21, 2026 X post (x.com/ashl3y_shen/status/2102020024676622690), cropped square around the trophy and medal; the card links to that post. The DMA image is the official 370 × 370 Difference Makers Awards 2026 graphic.
+- SANS's 2026 page lists Ashley under Practitioner of the Year: DFIR / Threat Intelligence Forensicator and calls the listed people "nominees"; the site labels it "Finalist". Winners are announced Dec 15, 2026, so update the card after the ceremony.
 
 ## 2026-10-29 content handover
 
