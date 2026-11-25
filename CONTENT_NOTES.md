@@ -1,5 +1,10 @@
 # Content notes
 
+## 2026-11-25 content handover
+
+- The UZH event logo (`assets/logos/uzh-white.svg`) is the unmodified white UZH logo served by the event host, cybersecurity.dsi.uzh.ch.
+- The Cisco Agentic AI Roadshow talk (Nov 12) has passed and auto-hides from Upcoming Events. It is intentionally not added to the Speaking archive.
+
 ## 2026-10-29 content handover
 
 - Added the supplied CERT-EU conference speaking photo to the public photo gallery. The card uses a general 2026 caption because no talk title was provided.
